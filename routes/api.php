@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/test', function () {
-    return response()->json(['message' => 'API funcionando! 🚀']);
-});
-
 Route::prefix('auth')->group(function () {
-    Route::get('/login', [UserController::class, 'login']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::get('me', [AuthController::class, 'me'])->middleware('auth:api');
+    Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
 });
