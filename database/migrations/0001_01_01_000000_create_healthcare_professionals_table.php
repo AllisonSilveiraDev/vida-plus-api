@@ -9,16 +9,17 @@ return new class extends Migration {
     {
         Schema::create('healthcare_professionals', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name', 80);
-            $table->string('last_name', 80);
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('professional_type_id')->nullable();
+            $table->foreign('professional_type_id')->references('id')->on('professional_types')->onDelete('set null');
             $table->string('license_number', 25)->unique();
             $table->string('cpf', 25)->unique();
             $table->string('rg', 25)->nullable();
             $table->string('phone', 20);
-            $table->string('email', 120)->unique();
             $table->text('address');
             $table->string('gender', 50);
-            $table->foreignId('professional_type_id')->constrained('professional_types');
+            $table->boolean('is_validated')->default(false);
+            $table->boolean('is_archived')->default(false);
             $table->string('specialty', 100)->nullable();
             $table->timestamps();
         });

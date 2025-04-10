@@ -16,8 +16,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('role_id')->nullable()->constrained('role_types')->onDelete('set null');
-            $table->foreignId('professional_id')->nullable()->constrained('healthcare_professionals');
-            $table->foreignId('patient_id')->nullable()->constrained('patients');
+            $table->unsignedBigInteger('professional_id')->nullable();
+            $table->unsignedBigInteger('patient_id')->nullable();
             $table->timestamps();
         });
 

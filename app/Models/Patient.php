@@ -11,9 +11,6 @@ class Patient extends Model {
     protected $table = 'patients';
 
     protected $fillable = [
-        'id', 
-        'first_name', 
-        'last_name', 
         'birth_date',
         'cpf', 
         'rg', 
@@ -22,10 +19,13 @@ class Patient extends Model {
         'gender', 
         'marital_status', 
         'blood_type',
+        'is_archived',
+        'is_validated',
+        'user_id',
     ];
 
     public function user()
-{
-    return $this->belongsTo(User::class, 'user_id');
-}
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

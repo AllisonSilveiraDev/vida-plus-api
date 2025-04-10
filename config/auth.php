@@ -8,11 +8,6 @@ return [
     ],
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
@@ -30,11 +25,11 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_reset_tokens',
-            'expire' => 120, // Token expira em 120 minutos
+            'expire' => 500000, // Token expira em 120 minutos
             'throttle' => 60,
         ],
     ],
 
-    'password_timeout' => 10800, // Tempo para confirmar senha (3 horas)
+    'password_timeout' => 500000, // Tempo para confirmar senha (3 horas)
 
 ];

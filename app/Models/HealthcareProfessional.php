@@ -12,17 +12,17 @@ class HealthcareProfessional extends Model
     protected $table = 'healthcare_professionals';
 
     protected $fillable = [
-        'first_name',
-        'last_name',
         'license_number',
         'cpf',
         'rg',
         'phone',
-        'email',
         'address',
         'gender',
         'professional_type_id',
         'specialty',
+        'is_validated',
+        'is_archived',
+        'user_id',
     ];
 
     public function professionalType()

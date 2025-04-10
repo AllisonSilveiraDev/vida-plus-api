@@ -4,47 +4,37 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\HealthcareProfessional;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class HealthcareProfessionalSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
-        $professionals = [
-            [
-                'id' => 1,
-                'first_name' => 'Maria',
-                'last_name' => 'Fernandes',
-                'license_number' => 'CRM123456',
-                'cpf' => '12345678901',
-                'rg' => '123456789',
-                'phone' => '51999999999',
-                'email' => 'maria.fernandes@example.com',
-                'address' => 'Rua B, Bairro D, Cidade Osório, Estado RS',
-                'gender' => 'Feminino',
-                'professional_type_id' => 1,
-                'specialty' => 'Clínico Geral',
-            ],
-            [
-                'id' => 2,
-                'first_name' => 'Carlos',
-                'last_name' => 'Souza',
-                'license_number' => 'CRM654321',
-                'cpf' => '98765432100',
-                'rg' => '987654321',
-                'phone' => '51988888888',
-                'email' => 'carlos.souza@example.com',
-                'address' => 'Rua C, Bairro E, Cidade Osório, Estado RS',
-                'gender' => 'Masculino',
-                'professional_type_id' => 2,
-                'specialty' => 'Cardiologista',
-            ],
-        ];
+        $user = User::create([
+            'first_name' => 'Maria',
+            'last_name' => 'Fernandes',
+            'email' => 'maria.fernandes@example.com',
+            'password' => Hash::make('password123'),
+            'role_id' => 2,
+            'professional_id' => null,
+            'patient_id' => null,
+        ]);
 
-        foreach ($professionals as $professional) {
-            HealthcareProfessional::firstOrCreate(
-                ['id' => $professional['id']],
-                $professional
-            );
-        }
+        $professional = HealthcareProfessional::firstOrCreate([
+            'license_number' => 'CRM123456',
+            'cpf' => '12345678901',
+            'rg' => '123456789',
+            'phone' => '51999999999',
+            'address' => 'Rua B, Bairro D, Cidade Osório, Estado RS',
+            'gender' => 'Feminino',
+            'professional_type_id' => 1,
+            'specialty' => 'Clínico Geral',
+            'user_id' => $user->id,
+        ]);
+
+        $user->update([
+            'professional_id' => $professional->id,
+        ]);
     }
 }

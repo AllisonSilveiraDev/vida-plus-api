@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
             AppoitmentTypeSeeder::class,
             ExamStatusSeeder::class,
             UnitTypeSeeder::class,
-            PatientSeeder::class,
             HealthcareProfessionalSeeder::class,
             UserSeeder::class,
         ]);

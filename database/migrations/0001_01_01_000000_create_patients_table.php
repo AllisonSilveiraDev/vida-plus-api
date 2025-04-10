@@ -9,23 +9,27 @@ return new class extends Migration {
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name', 50);
-            $table->string('last_name', 50);
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->date('birth_date');
             $table->string('cpf', 25)->unique();
             $table->string('rg', 25)->nullable();
             $table->string('phone', 20);
-            $table->string('email', 150)->unique();
             $table->text('address');
             $table->string('gender', 20);
+            $table->boolean('is_archived')->default(false);
+            $table->boolean('is_validated')->default(false);
             $table->string('marital_status', 20)->nullable();
             $table->string('blood_type', 5)->nullable();
             $table->timestamps();
         });
     }
 
-    public function down() {
-        Schema::dropIfExists('patients');
+    public function down()
+    {
+        Schema::table('patients', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
+        });
     }
 };
 
