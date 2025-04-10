@@ -25,6 +25,8 @@ class HealthcareProfessional extends Model
         'user_id',
     ];
 
+    public $timestamps = true;
+
     public function professionalType()
     {
         return $this->belongsTo(ProfessionalType::class, 'professional_type_id');

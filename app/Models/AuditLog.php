@@ -9,12 +9,16 @@ class AuditLog extends Model
 {
     use HasFactory;
 
+    protected $table = 'audit_logs';
+
     protected $fillable = [
         'user_id',
         'action',
         'ip_address',
         'details',
     ];
+    
+    public $timestamps = true;
 
     public function user()
     {

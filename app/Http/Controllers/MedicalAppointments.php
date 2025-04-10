@@ -7,16 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
 
-class ProfessionalController extends Controller
+class MedicalAppointments extends Controller
+
 {
     public function __construct(protected ProfessionalService $professionalService){}
 
     public function create(Request $request)
     {
         $request->validate([
-            'license_number' => 'required|string|size:11|unique:healthcare_professionals,license_number',
-            'cpf' => 'required|string|size:11|unique:healthcare_professionals,cpf',
-            'rg' => 'nullable|string|max:20',
+            'patient_id' => 'required|int|exists:patients,id',
+            'professional_id' => 'required|int|exists:healthcare_professionals,id',
+            'unit_id' => 'required|int|exists:healthcare_professionals,id',,
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
             'gender' => 'nullable|string|max:10',
@@ -34,8 +35,9 @@ class ProfessionalController extends Controller
 
     public function update(Request $request)
     {
+
         $request->validate([
-            'professional_id' => 'required|int|exists:healthcare_professionals,id',
+            'professionalId' => 'required|int|exists:healthcare_professionals,id',
             'license_number' => [
                 'nullable',
                 'string',
@@ -61,7 +63,7 @@ class ProfessionalController extends Controller
         return response()->json([
             'message' => 'Profissional atualizado com sucesso',
             'professional' => $professional
-        ], 200);
+        ], 201);
     }
     
 

@@ -9,8 +9,6 @@ class BedStatus extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $table = 'bed_status';
 
     protected $fillable = [
@@ -18,6 +16,8 @@ class BedStatus extends Model
         'name',
         'description',
     ];
+
+    public $timestamps = false;
 
     public function bed()
     {

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\AppoitmentType;
 use App\Models\UnitType;
 use Illuminate\Database\Seeder;
 

@@ -9,6 +9,8 @@ class Hospitalization extends Model
 {
     use HasFactory;
 
+    protected $table = 'hospitalizations';
+
     protected $fillable = [
         'patient_id',
         'unit_id',
@@ -18,6 +20,8 @@ class Hospitalization extends Model
         'discharge_date',
         'notes',
     ];
+
+    public $timestamps = true;
 
     public function patient()
     {

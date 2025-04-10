@@ -9,11 +9,15 @@ class Bed extends Model
 {
     use HasFactory;
 
+    protected $table = 'beds';
+
     protected $fillable = [
         'unit_id',
         'bed_number',
         'status_id',
     ];
+
+    public $timestamps = true;
 
     public function unit()
     {

@@ -9,6 +9,8 @@ class MedicalRecord extends Model
 {
     use HasFactory;
 
+    protected $table = 'medical_records';
+
     protected $fillable = [
         'appointment_id',
         'notes',
@@ -16,6 +18,8 @@ class MedicalRecord extends Model
         'requested_exams',
         'prescription_id',
     ];
+
+    public $timestamps = true;
 
     public function appointment()
     {

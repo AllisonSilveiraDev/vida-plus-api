@@ -7,13 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class PatientController extends Controller
-
 {
     public function __construct(protected PatientService $patientService){}
 
     public function create(Request $request)
     {
-
         $request->validate([
             'birth_date' => 'required|date',
             'cpf' => 'required|string|size:11|unique:patients,cpf',
@@ -35,7 +33,6 @@ class PatientController extends Controller
 
     public function update(Request $request)
     {
-
         $request->validate([
             'patient_id' => 'required|int|exists:patients,id',
             'birth_date' => 'date',
@@ -53,7 +50,7 @@ class PatientController extends Controller
         return response()->json([
             'message' => 'Paciente atualizado com sucesso',
             'patient' => $patient
-        ], 201);
+        ], 200);
     }
     
 

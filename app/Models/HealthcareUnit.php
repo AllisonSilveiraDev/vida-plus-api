@@ -9,13 +9,18 @@ class HealthcareUnit extends Model
 {
     use HasFactory;
 
+    protected $table = 'healthcare_units';
+
     protected $fillable = [
         'name',
         'cnpj',
         'type_id',
         'address',
         'phone',
+        'is_archived',
     ];
+
+    public $timestamps = true;
 
     public function type()
     {

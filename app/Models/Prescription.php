@@ -9,6 +9,8 @@ class Prescription extends Model
 {
     use HasFactory;
 
+    protected $table = 'prescriptions';
+
     protected $fillable = [
         'professional_id',
         'patient_id',
@@ -16,6 +18,8 @@ class Prescription extends Model
         'prescription_text',
         'prescription_pdf',
     ];
+    
+    public $timestamps = true;
 
     public function professional()
     {

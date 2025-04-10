@@ -9,8 +9,6 @@ class AppointmentStatus extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $table = 'appointment_status';
 
     protected $fillable = [
@@ -18,6 +16,8 @@ class AppointmentStatus extends Model
         'name',
         'description',
     ];
+
+    public $timestamps = false;
 
     public function medicalAppointment()
     {

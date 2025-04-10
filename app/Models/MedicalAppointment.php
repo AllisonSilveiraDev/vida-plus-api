@@ -9,6 +9,8 @@ class MedicalAppointment extends Model
 {
     use HasFactory;
 
+    protected $table = 'medical_appointments';
+
     protected $fillable = [
         'patient_id',
         'professional_id',
@@ -17,6 +19,8 @@ class MedicalAppointment extends Model
         'appointment_type_id',
         'status_id',
     ];
+
+    public $timestamps = true;
 
     public function patient()
     {

@@ -9,6 +9,8 @@ class Schedule extends Model
 {
     use HasFactory;
 
+    protected $table = 'schedules';
+
     protected $fillable = [
         'professional_id',
         'patient_id',
@@ -18,6 +20,8 @@ class Schedule extends Model
         'end_time',
         'status_id',
     ];
+
+    public $timestamps = true;
 
     public function professional()
     {

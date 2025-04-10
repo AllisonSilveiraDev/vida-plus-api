@@ -9,6 +9,8 @@ class TelemedicineCall extends Model
 {
     use HasFactory;
 
+    protected $table = 'telemedicine_calls';
+
     protected $fillable = [
         'appointment_id',
         'room_url',
@@ -17,6 +19,8 @@ class TelemedicineCall extends Model
         'start_time',
         'end_time',
     ];
+
+    public $timestamps = true;
 
     public function appointment()
     {

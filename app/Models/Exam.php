@@ -9,6 +9,8 @@ class Exam extends Model
 {
     use HasFactory;
 
+    protected $table = 'exams';
+
     protected $fillable = [
         'professional_id',
         'patient_id',
@@ -20,6 +22,7 @@ class Exam extends Model
         'status_id',
     ];
 
+    public $timestamps = true;
 
     public function professional()
     {

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HealthcareUnit;
+use App\Http\Controllers\MedicalAppointments;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfessionalController;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +31,20 @@ Route::prefix('professional')->middleware('auth:api')->group(function () {
     Route::get('list-all', [ProfessionalController::class, 'listAll']);
     Route::get('details/{professional_id}', [ProfessionalController::class, 'details']);
 });
+
+Route::prefix('healthcare-unit')->middleware('auth:api')->group(function () {
+    Route::post('create', [HealthcareUnit::class, 'create']);
+    Route::post('update', [HealthcareUnit::class, 'update']);
+    Route::post('archive', [HealthcareUnit::class, 'archive']);
+    Route::get('list-all', [HealthcareUnit::class, 'listAll']);
+    Route::get('details/{appointments_id}', [HealthcareUnit::class, 'details']);
+});
+
+// Route::prefix('medical-appointments')->middleware('auth:api')->group(function () {
+//     Route::post('create', [MedicalAppointments::class, 'create']);
+//     Route::post('update', [MedicalAppointments::class, 'update']);
+//     Route::post('archive', [MedicalAppointments::class, 'archive']);
+//     Route::post('validate', [MedicalAppointments::class, 'validate']);
+//     Route::get('list-all', [MedicalAppointments::class, 'listAll']);
+//     Route::get('details/{appointments_id}', [MedicalAppointments::class, 'details']);
+// });

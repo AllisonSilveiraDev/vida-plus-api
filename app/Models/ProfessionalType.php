@@ -14,6 +14,8 @@ class ProfessionalType extends Model
         'description',
     ];
 
+    public $timestamps = false;
+
     public function professional()
     {
         return $this->hasMany(HealthcareProfessional::class, 'professional_type_id');

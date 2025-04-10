@@ -5,9 +5,11 @@ namespace App\Services;
 use App\Models\HealthcareProfessional;
 use App\Models\User;
 
-class ProfessionalService
+class MedicalAppointmentService
 {
+
     public function __construct() {}
+
 
     public function create($request): HealthcareProfessional
     {
@@ -22,12 +24,13 @@ class ProfessionalService
             'specialty' => $request->specialty,
         ]);
 
+
         return $professional;
     }
 
     public function update($request): HealthcareProfessional
     {
-        $professional = HealthcareProfessional::findOrFail($request->professional_id);
+        $professional = HealthcareProfessional::findOrFail($request->professionalId);
 
         $professional->update($request->only([
             'license_number',

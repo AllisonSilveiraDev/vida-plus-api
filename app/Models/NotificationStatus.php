@@ -9,8 +9,6 @@ class NotificationStatus extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $table = 'notifications_status';
 
     protected $fillable = [
@@ -18,6 +16,8 @@ class NotificationStatus extends Model
         'name',
         'description',
     ];
+
+    public $timestamps = false;
 
     public function notification()
     {

@@ -7,9 +7,7 @@ use App\Models\User;
 
 class PatientService
 {
-
     public function __construct(){}
-
 
     public function create($request): Patient
     {
@@ -23,7 +21,6 @@ class PatientService
             'marital_status' => $request->marital_status,
             'blood_type' => $request->blood_type,
         ]);
-
 
         return $patient;
     }
@@ -45,8 +42,6 @@ class PatientService
     
         return $patient;
     }
-    
-    
 
     public function archive($request): string
     {

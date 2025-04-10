@@ -9,12 +9,17 @@ class Supply extends Model
 {
     use HasFactory;
 
+    protected $table = 'supplies';
+
     protected $fillable = [
         'unit_id',
         'name',
         'status',
         'quantity',
     ];
+
+    
+    public $timestamps = true;
 
     public function unit()
     {

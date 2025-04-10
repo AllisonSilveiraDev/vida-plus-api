@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UnitTypeSeeder::class,
             HealthcareProfessionalSeeder::class,
             UserSeeder::class,
+            HealthcareUnitSeeder::class,
         ]);
     }
 }

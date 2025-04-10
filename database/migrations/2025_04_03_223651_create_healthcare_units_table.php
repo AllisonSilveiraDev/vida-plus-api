@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('cnpj', 20);
             $table->foreignId('type_id')->constrained('unit_types');
             $table->text('address');
+            $table->boolean('is_archived')->default(false);
             $table->string('phone', 20);
             $table->timestamps();
         });

@@ -10,6 +10,8 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    protected $table = 'users';
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -25,6 +27,8 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'remember_token',
     ];
+
+    public $timestamps = true;
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
