@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             RoleTypeSeeder::class,
             ProfessionalTypeSeeder::class,
             PatientSeeder::class,
+            AppoitmentStatusSeeder::class,
             AppoitmentTypeSeeder::class,
             ExamStatusSeeder::class,
             UnitTypeSeeder::class,

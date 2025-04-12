@@ -10,13 +10,9 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('professional_id')->constrained('healthcare_professionals');
-            $table->foreignId('patient_id')->constrained('patients');
-            $table->foreignId('unit_id')->constrained('healthcare_units');
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
-            $table->foreignId('status_id')->constrained('appointment_status');
             $table->timestamps();
         });
     }

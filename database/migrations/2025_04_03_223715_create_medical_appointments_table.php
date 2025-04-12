@@ -12,9 +12,10 @@ return new class extends Migration {
             $table->foreignId('patient_id')->constrained('patients');
             $table->foreignId('professional_id')->constrained('healthcare_professionals');
             $table->foreignId('unit_id')->constrained('healthcare_units');
-            $table->foreignId('schedule_id')->constrained('schedules');;
+            $table->foreignId('schedule_id')->nullable()->constrained('schedules');
             $table->foreignId('appointment_type_id')->constrained('appointment_types');
             $table->foreignId('status_id')->constrained('appointment_status');
+            $table->boolean('is_archived')->default(false);
             $table->timestamps();
         });
     }

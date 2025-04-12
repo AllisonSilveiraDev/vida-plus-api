@@ -2,102 +2,91 @@
 
 namespace App\Services;
 
-use App\Models\HealthcareProfessional;
-use App\Models\User;
+use App\Models\MedicalAppointment;
+use App\Models\Schedule;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class MedicalAppointmentService
 {
-
     public function __construct() {}
 
-
-    public function create($request): HealthcareProfessional
+    public function create($request): MedicalAppointment
     {
-        $professional = HealthcareProfessional::create([
-            'license_number' => $request->license_number,
-            'cpf' => $request->cpf,
-            'rg' => $request->rg,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'gender' => $request->gender,
-            'professional_type_id' => $request->professional_type_id,
-            'specialty' => $request->specialty,
-        ]);
+        return DB::transaction(function () use ($request) {
+            $schedule = Schedule::create([
+                'date' => $request->date,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+            ]);
+            
+            if (!$schedule) {
+                throw new Exception('Erro ao criar o agendamento.');
+            }
 
+            $appointment = MedicalAppointment::create([
+                'patient_id' => $request->patient_id,
+                'professional_id' => $request->professional_id,
+                'unit_id' => $request->unit_id,
+                'appointment_type_id' => $request->appointment_type_id,
+                'status_id' => $request->status_id,
+                'schedule_id' => $schedule->id
+            ]);
 
-        return $professional;
+            if (!$appointment) {
+                throw new Exception('Erro ao criar a consulta.');
+            }
+    
+            return $appointment->load('schedule');
+        });
     }
 
-    public function update($request): HealthcareProfessional
+    public function update($request): MedicalAppointment
     {
-        $professional = HealthcareProfessional::findOrFail($request->professionalId);
-
-        $professional->update($request->only([
-            'license_number',
-            'cpf',
-            'rg',
-            'phone',
-            'address',
-            'gender',
-            'professional_type_id',
-            'specialty',
-        ]));
-
-        return $professional;
+        return DB::transaction(function () use ($request) {
+            $appointment = MedicalAppointment::findOrFail($request->medical_appointment_id);
+    
+            if ($request->filled('schedule_id')) {
+                $schedule = Schedule::findOrFail($request->schedule_id);
+                $schedule->update([
+                    'date' => $request->date,
+                    'start_time' => $request->start_time,
+                    'end_time' => $request->end_time,
+                ]);
+            }
+    
+            $appointment->update([
+                'patient_id' => $request->patient_id,
+                'professional_id' => $request->professional_id,
+                'unit_id' => $request->unit_id,
+                'appointment_type_id' => $request->appointment_type_id,
+                'status_id' => $request->status_id,
+                'schedule_id' => $schedule->id
+            ]);
+    
+            return $appointment->load('schedule');
+        });
     }
 
     public function archive($request): string
     {
-        $updated = HealthcareProfessional::where('id', $request->id)->update([
+        $updated = MedicalAppointment::where('id', $request->id)->update([
             'is_archived' => true
         ]);
 
-        return $updated ? "Profissional arquivado com sucesso." : "Profissional não encontrado.";
+        return $updated ? "Consulta arquivada com sucesso." : "Consulta não encontrada.";
     }
 
-    public function validate($request): string
+    public function listAll(): JsonResponse
     {
-        $professionalId = $request->professional_id;
-        $userId = $request->user_id;
-    
-        $userExists = User::find($userId);
-        $professionalExists = HealthcareProfessional::find($professionalId);
-    
-        if (!$userExists || !$professionalExists) {
-            return "Usuário ou profissional não encontrado.";
-        }
-    
-        $updatedUser = User::where('id', $userId)->update([
-            'professional_id' => $professionalId
-        ]);
-    
-        if ($updatedUser) {
-            $updateData = ['is_validated' => true];
-    
-            if ($request->filled('professional_type_id')) {
-                $updateData['professional_type_id'] = $request->professional_type_id;
-            }
-    
-            $updatedProfessional = HealthcareProfessional::where('id', $professionalId)->update($updateData);
-    
-            if ($updatedProfessional) {
-                return "Profissional validado com sucesso.";
-            }
-        }
-    
-        return "Falha na validação do profissional.";
-    }
-    
+        $appointments = MedicalAppointment::query()->with('schedule')->get();
 
-    public function listAll()
-    {
-        $professionals = HealthcareProfessional::query()->with('user')->get();
-
-        return response()->json($professionals);
+        return response()->json($appointments);
     }
 
-    public function details($professionalId)
+    public function details($appointmentId): MedicalAppointment
     {
-        return HealthcareProfessional::query()->with('user')->find($professionalId);
+        return MedicalAppointment::query()->with('schedule')->find($appointmentId);
     }
 }

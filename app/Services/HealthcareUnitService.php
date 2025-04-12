@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\HealthcareUnit;
+use Illuminate\Http\JsonResponse;
 
 class HealthcareUnitService
 {
@@ -45,14 +46,14 @@ class HealthcareUnitService
         return $updated ? "Unidade de saúde arquivada com sucesso." : "Unidade de saúde não encontrada.";
     }
 
-    public function listAll()
+    public function listAll(): JsonResponse
     {
         $healthcareUnits = HealthcareUnit::query()->with('type')->get();
 
         return response()->json($healthcareUnits);
     }
 
-    public function details($healthcareUnitId)
+    public function details($healthcareUnitId): HealthcareUnit
     {
         return HealthcareUnit::query()->with('type')->find($healthcareUnitId);
     }

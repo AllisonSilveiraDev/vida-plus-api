@@ -6,7 +6,7 @@ use App\Services\HealthcareUnitService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-class HealthcareUnit extends Controller
+class HealthcareUnitController extends Controller
 {
     public function __construct(protected HealthcareUnitService $healthcareUnitService){}
 

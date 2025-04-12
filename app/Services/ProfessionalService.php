@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\HealthcareProfessional;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 
 class ProfessionalService
 {
@@ -86,14 +87,14 @@ class ProfessionalService
     }
     
 
-    public function listAll()
+    public function listAll(): JsonResponse
     {
         $professionals = HealthcareProfessional::query()->with('user')->get();
 
         return response()->json($professionals);
     }
 
-    public function details($professionalId)
+    public function details($professionalId): HealthcareProfessional
     {
         return HealthcareProfessional::query()->with('user')->find($professionalId);
     }

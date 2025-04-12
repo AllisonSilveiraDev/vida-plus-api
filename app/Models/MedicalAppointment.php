@@ -18,6 +18,7 @@ class MedicalAppointment extends Model
         'schedule_id',
         'appointment_type_id',
         'status_id',
+        'is_archived',
     ];
 
     public $timestamps = true;

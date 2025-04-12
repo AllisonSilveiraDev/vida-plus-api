@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Patient;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 
 class PatientService
 {
@@ -81,14 +82,14 @@ class PatientService
         return "Falha na validação do paciente.";
     }
 
-    public function listAll()
+    public function listAll(): JsonResponse
     {
         $patients = Patient::query()->with('user')->get();
     
         return response()->json($patients);
     }
 
-    public function details($patientId)
+    public function details($patientId): Patient
     {
         return Patient::query()->with('user')->find($patientId);
     }

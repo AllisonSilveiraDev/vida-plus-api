@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HealthcareUnit;
-use App\Http\Controllers\MedicalAppointments;
+use App\Http\Controllers\HealthcareUnitController;
+use App\Http\Controllers\MedicalAppointmentsController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfessionalController;
 use Illuminate\Support\Facades\Route;
@@ -33,18 +33,18 @@ Route::prefix('professional')->middleware('auth:api')->group(function () {
 });
 
 Route::prefix('healthcare-unit')->middleware('auth:api')->group(function () {
-    Route::post('create', [HealthcareUnit::class, 'create']);
-    Route::post('update', [HealthcareUnit::class, 'update']);
-    Route::post('archive', [HealthcareUnit::class, 'archive']);
-    Route::get('list-all', [HealthcareUnit::class, 'listAll']);
-    Route::get('details/{appointments_id}', [HealthcareUnit::class, 'details']);
+    Route::post('create', [HealthcareUnitController::class, 'create']);
+    Route::post('update', [HealthcareUnitController::class, 'update']);
+    Route::post('archive', [HealthcareUnitController::class, 'archive']);
+    Route::get('list-all', [HealthcareUnitController::class, 'listAll']);
+    Route::get('details/{appointments_id}', [HealthcareUnitController::class, 'details']);
 });
 
-// Route::prefix('medical-appointments')->middleware('auth:api')->group(function () {
-//     Route::post('create', [MedicalAppointments::class, 'create']);
-//     Route::post('update', [MedicalAppointments::class, 'update']);
-//     Route::post('archive', [MedicalAppointments::class, 'archive']);
-//     Route::post('validate', [MedicalAppointments::class, 'validate']);
-//     Route::get('list-all', [MedicalAppointments::class, 'listAll']);
-//     Route::get('details/{appointments_id}', [MedicalAppointments::class, 'details']);
-// });
+Route::prefix('medical-appointments')->middleware('auth:api')->group(function () {
+    Route::post('create', [MedicalAppointmentsController::class, 'create']);
+    Route::post('update', [MedicalAppointmentsController::class, 'update']);
+    Route::post('archive', [MedicalAppointmentsController::class, 'archive']);
+    Route::post('validate', [MedicalAppointmentsController::class, 'validate']);
+    Route::get('list-all', [MedicalAppointmentsController::class, 'listAll']);
+    Route::get('details/{appointments_id}', [MedicalAppointmentsController::class, 'details']);
+});
